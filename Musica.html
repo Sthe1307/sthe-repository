@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluraflix</title>
+    <style>
+        body {
+            background-color: rgb(214, 77, 148);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            padding: 20px;
+            background-color: #da1a83; /* Rosa escuro */
+            font-family: Serif; /* Fonte Serif */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-container iframe {
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+        }
+        .video-details {
+            margin-top: 10px;
+            font-family: Serif; /* Fonte Serif */
+        }
+        .video-list {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgb(214, 77, 148);
+        }
+        .video-list h2 {
+            margin-bottom: 20px;
+            font-family: Serif; /* Fonte Serif */
+        }
+        .video-list iframe {
+            margin: 10px 0;
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .video-wrapper {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .video-container iframe {
+                width: 560px;
+                height: 315px;
+            }
+            .video-details {
+                text-align: left;
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>aluraflix</header>
+    <div class="container">
+        <div class="video-wrapper">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/pRJ-Dai3oB0?si=QSUHqHHm-fm4jSNF" title="Hello Kitty Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-details">
+                <h1>Hello Kitty and Friends Supercute Adventures | The Perfect Gift</h1>
+                <p>#desenho</p>
+            </div>
+        </div>
+    </div>
+    <div class="video-list">
+        <h2>Vídeos sobre Amigos da Hello Kitty</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/J4Ly6ygfBKI?si=ZLWMtg9dkH03iJ_5" title="Hello Kitty Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/opEl-7TzTzU?si=mirBzjZB-j5NPecY" title="Hello Kitty Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/x2nwXqvt7RI?si=7METnNURYL7CRsn-" title="Hello Kitty Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</body>
+</html>
