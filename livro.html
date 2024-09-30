@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História Interativa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: black;
+            color: white;
+        }
+        .options {
+            margin-top: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Uma Aventura na Floresta</h1>
+    <p id="story">Você se encontra na entrada de uma floresta misteriosa. O que você deseja fazer?</p>
+    
+    <div class="options">
+        <button onclick="choose('explorar')">Explorar a floresta</button>
+        <button onclick="choose('voltar')">Voltar para casa</button>
+    </div>
+
+    <script>
+        function choose(option) {
+            const storyElement = document.getElementById('story');
+            if (option === 'explorar') {
+                storyElement.innerText = 'Você avança pela floresta e encontra um caminho bifurcado. Você pode ir para a esquerda ou para a direita. O que você faz?';
+                updateOptions('esquerda', 'direita');
+            } else if (option === 'voltar') {
+                storyElement.innerText = 'Você decide que é melhor voltar para casa. Fim da aventura.';
+                clearOptions();
+            } else if (option === 'esquerda') {
+                storyElement.innerText = 'Você segue pela esquerda e encontra uma clareira cheia de flores coloridas. No centro, há um lago mágico. O que você faz?';
+                updateOptions('mergulhar', 'recolher flores');
+            } else if (option === 'direita') {
+                storyElement.innerText = 'Você escolhe a direita e logo encontra uma caverna sombria. Você escuta um rugido vindo de dentro. O que fazer?';
+                updateOptions('entrar', 'voltar');
+            } else if (option === 'mergulhar') {
+                storyElement.innerText = 'Você mergulha no lago e descobre um tesouro subaquático! Você é rico! Fim da aventura.';
+                clearOptions();
+            } else if (option === 'recolher flores') {
+                storyElement.innerText = 'Enquanto você coleta flores, um unicórnio aparece e te oferece um desejo! O que você deseja?';
+                updateOptions('riqueza', 'sabedoria');
+            } else if (option === 'entrar') {
+                storyElement.innerText = 'Dentro da caverna, você encontra uma criatura mágica que te oferece um desafio. Você aceita?';
+                updateOptions('sim', 'não');
+            } else if (option === 'voltar') {
+                storyElement.innerText = 'Você decide voltar e explorar outra parte da floresta. O que você faz?';
+                updateOptions('explorar', 'voltar para casa');
+            } else if (option === 'riqueza') {
+                storyElement.innerText = 'Seu desejo é atendido, e você se torna o mais rico do reino! Fim da aventura.';
+                clearOptions();
+            } else if (option === 'sabedoria') {
+                storyElement.innerText = 'Você ganha sabedoria infinita e se torna um grande sábio. Fim da aventura.';
+                clearOptions();
+            } else if (option === 'sim') {
+                storyElement.innerText = 'Você aceita o desafio e consegue derrotar a criatura, ganhando um amuleto mágico! Fim da aventura.';
+                clearOptions();
+            } else if (option === 'não') {
+                storyElement.innerText = 'Você decide não entrar em conflito e encontra um caminho seguro para sair da caverna. Fim da aventura.';
+                clearOptions();
+            }
+        }
+
+        function updateOptions(option1, option2) {
+            const optionsDiv = document.querySelector('.options');
+            optionsDiv.innerHTML = `
+                <button onclick="choose('${option1}')">${option1.charAt(0).toUpperCase() + option1.slice(1)}</button>
+                <button onclick="choose('${option2}')">${option2.charAt(0).toUpperCase() + option2.slice(1)}</button>
+            `;
+        }
+
+        function clearOptions() {
+            const optionsDiv = document.querySelector('.options');
+            optionsDiv.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
