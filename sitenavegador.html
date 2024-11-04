@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ConectaPurple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: purple;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            background-color: #f3f2ef;
+            max-width: 90%;
+            width: 100%;
+            margin: 20px;
+            height: 90vh; /* Aumentado para 90vh */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #6a0dad;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            border: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            margin-bottom: 20px;
+        }
+
+        .post h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .post p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        .create-post {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .create-post textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .create-post button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        footer {
+            background-color: #6a0dad;
+            color: white;
+            padding: 15px 0;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        footer .icon {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .like-button {
+            background-color: transparent;
+            border: none;
+            color: #6a0dad;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .liked {
+            color: gray;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="main-container">
+    <header>
+        <h1>ConectaPurple</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquisar..." id="searchInput" oninput="filterPosts()">
+        </div>
+    </header>
+
+    <div class="container" id="postContainer">
+        <div class="create-post">
+            <textarea id="postText" rows="4" placeholder="Comece uma postagem..."></textarea>
+            <button onclick="createPost()">Postar</button>
+        </div>
+
+        <!-- Exemplo de postagens iniciais -->
+        <div class="post">
+            <h3>Maria Silva</h3>
+            <p>Comecei a aprender fotografia recentemente e estou adorando! Alguém tem dicas para iniciantes?</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">45</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>João Pereira</h3>
+            <p>A paisagem hoje está linda! Aproveitei para tirar algumas fotos no parque.</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">120</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Ana Costa</h3>
+            <p>Esse novo layout do ConectaPurple ficou incrível! Facilita muito a navegação.</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">300</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Rafael Lima</h3>
+            <p>Alguma recomendação de livro sobre desenvolvimento pessoal? Preciso de novas leituras!</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">78</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Lucas Monteiro</h3>
+            <p>Iniciando minha jornada no mundo da programação. Alguma dica para iniciantes?</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">150</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Juliana Carvalho</h3>
+            <p>Acabei de visitar uma exposição de arte contemporânea. Foi inspirador!</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">90</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Felipe Araújo</h3>
+            <p>Estou planejando uma viagem para o exterior. Alguma sugestão de destino?</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">40</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Laura Ferreira</h3>
+            <p>Hoje fiz um ótimo jantar para minha família. A receita de lasanha ficou perfeita!</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">65</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Pedro Santos</h3>
+            <p>Acabei de concluir meu curso de culinária. Mal posso esperar para cozinhar para todos!</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">55</span>)</button>
+        </div>
+        <div class="divider"></div>
+
+        <div class="post">
+            <h3>Isabela Gomes</h3>
+            <p>Ontem assisti um filme incrível que recomendo a todos! Vale a pena conferir.</p>
+            <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">75</span>)</button>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <footer>
+        <i class="fas fa-home icon"></i>
+        <i class="fas fa-user-friends icon"></i>
+        <i class="fas fa-bell icon"></i>
+        <i class="fas fa-envelope icon"></i>
+    </footer>
+</div>
+
+<script>
+    // Função para criar uma nova postagem
+    function createPost() {
+        var postText = document.getElementById('postText').value;
+        var postContainer = document.getElementById('postContainer');
+
+        if (postText.trim() !== "") {
+            var newPost = document.createElement('div');
+            newPost.classList.add('post');
+            newPost.innerHTML = `<h3>Seu Nome</h3><p>${postText}</p>
+                <button class="like-button" onclick="likePost(this)">Curtidas (<span class="like-count">0</span>)</button>`;
+            postContainer.prepend(newPost); // Adiciona a nova postagem no topo
+            document.getElementById('postText').value = ""; // Limpa o campo de texto
+        } else {
+            alert("Por favor, escreva algo antes de postar.");
+        }
+    }
+
+    // Função para curtir uma postagem
+    function likePost(button) {
+        var likeCountElement = button.querySelector('.like-count');
+        var currentCount = parseInt(likeCountElement.innerText);
+        likeCountElement.innerText = currentCount + 1; // Incrementa o contador de curtidas
+        button.classList.add('liked');
+    }
+
+    // Função para filtrar postagens
+    function filterPosts() {
+        var input = document.getElementById('searchInput').value.toLowerCase();
+        var posts = document.querySelectorAll('.post');
+
+        posts.forEach(post => {
+            var postText = post.querySelector('p').innerText.toLowerCase();
+            post.style.display = postText.includes(input) ? 'block' : 'none'; // Mostra ou esconde as postagens
+        });
+    }
+</script>
+</body>
+</html>
